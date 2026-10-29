@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="dark">
+<title>Mission Control · Kevin Bartolome</title>
+<meta name="description" content="A case study: how Kevin Bartolome handed most of the end-to-end (E2E) test work to AI agents, and what still needs a person.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="/site.css">
+</head>
+<body>
+<header class="top" data-top><div class="wrap">
+  <a class="brand" href="/"><span class="mark">KB</span><span class="nm">Kevin Bartolome</span></a>
+  <nav class="links" aria-label="Demo pages, resume and contact"><a class="demo" href="/bridge" target="_blank" rel="noopener">The Bridge</a><a class="demo" href="/investigations" target="_blank" rel="noopener">Investigations</a><a class="fold" href="/Kevin-Bartolome-Resume.pdf" target="_blank" rel="noopener">PDF</a><a class="fold-sm" href="https://www.linkedin.com/in/kevin-bartolome/" target="_blank" rel="noopener">LinkedIn</a><a class="fold" href="mailto:kevin.rl.bartolome@gmail.com" target="_blank" rel="noopener">Email</a><a class="pill" href="/resume" target="_blank" rel="noopener">Resume</a></nav>
+</div></header>
+
+<main>
+<section class="cs-hero">
+  <div class="stage-light" aria-hidden="true"></div>
+  <div class="wrap hero-in">
+    <p class="eyebrow">Case study · Mission Control · about 5 minutes</p>
+    <h1 class="metal">How I handed most of the E2E test work to AI agents, and what still needs a person</h1>
+    <p class="deck">Mission Control is a personal project, 2026 to present:<a class="cite" href="#src-1" aria-label="Source 1">1</a> AI agents that investigate, fix, create and review end-to-end (E2E) tests, <span class="lit">with a person on every decision that is hard to undo.</span></p>
+    <dl class="specs">
+      <div><dt class="metal">10x</dt><dd>as efficient as investigating failures by hand<a class="cite" href="#src-2" aria-label="Source 2">2</a></dd></div>
+      <div><dt class="metal">50</dt><dd>fully vetted E2E tests in one day, against 10 a week expected<a class="cite" href="#src-3" aria-label="Source 3">3</a></dd></div>
+      <div><dt class="metal">20</dt><dd>client investigations at once, about 800 failures in all<a class="cite" href="#src-4" aria-label="Source 4">4</a></dd></div>
+      <div><dt class="metal">~1k</dt><dd>tokens per filtered report, down from <span class="nw">3-8k</span> per raw page snapshot<a class="cite" href="#src-5" aria-label="Source 5">5</a></dd></div>
+    </dl>
+  </div>
+</section>
+
+<div class="paper">
+<div class="read">
+  <nav class="toc" aria-label="On this page">
+    <p class="eyebrow">On this page</p>
+    <ol>
+      <li><a href="#problem">The problem</a></li>
+      <li><a href="#constraints">The constraints</a></li>
+      <li><a href="#decisions">The decisions, and what each cost</a></li>
+      <li><a href="#runs">How it runs</a></li>
+      <li><a href="#honest">How it stays honest</a></li>
+      <li><a href="#day">One day, start to finish</a></li>
+      <li><a href="#person">What still needs a person</a></li>
+      <li><a href="#changed">What changed</a></li>
+      <li><a href="#sources">Sources</a></li>
+    </ol>
+  </nav>
+  <article class="body-col">
+    <section id="problem">
+      <p class="lab">01 · The problem</p>
+      <h2>Every failure asks one question, and answering it takes a lot of reading.</h2>
+      <p>I lead a team that investigates 5,000+ E2E test failures a day for about 200 customers.<a class="cite" href="#src-6" aria-label="Source 6">6</a> Each one asks the same question: is the E2E test wrong, or is the product broken? Answering it means reading the logs, the trace and the live page, finding the cause with evidence, and proving the fix.</p>
+      <p>New E2E tests were slow too: the company expected about 10 a week.<a class="cite" href="#src-3" aria-label="Source 3">3</a> And every E2E test, new or a teammate's, needs someone to check that it does what its steps say.</p>
+      <p>I wanted agents to do that reading and leave the decision to a person, so I could lead the team and still investigate hands-on all day.<a class="cite" href="#src-7" aria-label="Source 7">7</a></p>
+      <p>Before this project I had already made AI output testable: 65 E2E tests that check non-deterministic LLM behavior, even though the answers change every run.<a class="cite" href="#src-8" aria-label="Source 8">8</a> Mission Control asks the next question: can agents do the investigating, the creating and the reviewing, and stay honest about it?</p>
+    </section>
+
+    <section id="constraints">
+      <p class="lab">02 · The constraints</p>
+      <h2>What the system had to respect</h2>
+      <ul class="ticks">
+        <li><b>A person approves what is hard to undo.</b> Changes to a customer's E2E tests, and anything sent to a customer, wait for me.</li>
+        <li><b>An agent saying "fixed" is not proof.</b> Only a run shows that a fix works.<a class="cite" href="#src-9" aria-label="Source 9">9</a></li>
+        <li><b>Sessions end.</b> A session can close mid-task, and its work must not vanish with it.<a class="cite" href="#src-4" aria-label="Source 4">4</a></li>
+        <li><b>Context costs money.</b> A raw snapshot of a live page costs 3-8k tokens.<a class="cite" href="#src-5" aria-label="Source 5">5</a></li>
+        <li><b>I still lead a team.</b> The system runs while I work, and shows me only what needs me.</li>
+      </ul>
+    </section>
+
+    <section id="decisions">
+      <p class="lab">03 · The decisions</p>
+      <h2>The decisions, and what each one cost</h2>
+      <p>Each choice traded something away.</p>
+      <ol class="dec">
+        <li>
+          <h3>Re-run before reading</h3>
+          <p>Every new batch of failures starts with a plain re-run, before any agent reads a trace.</p>
+          <dl><dt>Cost</dt><dd>The first diagnosis waits for the re-run.</dd>
+            <dt>In return</dt><dd>A failure that passes with no change costs no investigation.</dd></dl>
+        </li>
+        <li>
+          <h3>Proof before "ready"</h3>
+          <p>"Ready" needs a clean local run plus a run on the platform's own infrastructure, on the same code, with the run id attached.<a class="cite" href="#src-9" aria-label="Source 9">9</a></p>
+          <dl><dt>Cost</dt><dd>Every fix waits for both runs.</dd>
+            <dt>In return</dt><dd>"Ready" can be checked, not just trusted.</dd></dl>
+        </li>
+        <li>
+          <h3>I apply the fixes myself</h3>
+          <p>Agents find the cause and prove the fix. I apply the change to a customer's E2E tests.<a class="cite" href="#src-2" aria-label="Source 2">2</a></p>
+          <dl><dt>Cost</dt><dd>A proven fix can wait for me.</dd>
+            <dt>In return</dt><dd>No customer's E2E test changes without a person.</dd></dl>
+        </li>
+        <li>
+          <h3>A lead per client, and everything in plain text</h3>
+          <p>One lead agent session owns each client, worker sessions each own one piece of work end to end, and all state lives in plain-text records.<a class="cite" href="#src-4" aria-label="Source 4">4</a></p>
+          <dl><dt>Cost</dt><dd>No agent keeps its progress in its head. It writes everything down as it goes.</dd>
+            <dt>In return</dt><dd>No work is lost when a session ends, and clients run side by side: 20 at once, about 800 failures in all.<a class="cite" href="#src-4" aria-label="Source 4">4</a></dd></dl>
+        </li>
+        <li>
+          <h3>Show the agent less</h3>
+          <p>A small tool reads the live page and hands the agent a filtered report, not a raw snapshot.</p>
+          <dl><dt>Cost</dt><dd>One more tool to build and maintain.</dd>
+            <dt>In return</dt><dd>About 1k tokens per report instead of 3-8k, and a live page inspected in 17s instead of 62s.<a class="cite" href="#src-5" aria-label="Source 5">5</a></dd></dl>
+        </li>
+        <li>
+          <h3>Guardrails in the tool, not in the prompt</h3>
+          <p>The tool itself refuses destructive actions on the test platform, whatever an agent was told.<a class="cite" href="#src-9" aria-label="Source 9">9</a></p>
+          <dl><dt>Cost</dt><dd>A refused command stops its agent until I allow it, so refusals show in red on the page I watch.</dd>
+            <dt>In return</dt><dd>Safety does not depend on a model following instructions.</dd></dl>
+        </li>
+        <li>
+          <h3>Every correction becomes a rule, and a check where it can</h3>
+          <p>When I correct an agent, the lesson goes into its rules and, where it can, becomes a check that fails on a repeat.</p>
+          <dl><dt>Cost</dt><dd>Checks pile up and slow every change. So a check runs only where a change reaches, and the full list runs once, when a change touches many files.</dd>
+            <dt>In return</dt><dd>A corrected mistake is caught by a check next time, not by me.</dd></dl>
+        </li>
+      </ol>
+    </section>
+
+    <section id="runs">
+      <p class="lab">04 · How it runs</p>
+      <h2>Three kinds of work, leads and workers, two pages</h2>
+      <p>The agents run on Claude Code and work the test platform through its CLI and MCP.<a class="cite" href="#src-2" aria-label="Source 2">2</a> A lead agent session owns each client, and workers take one piece each, from writing a fix to proving it.<a class="cite" href="#src-4" aria-label="Source 4">4</a></p>
+      <ul class="ticks">
+        <li><b>Investigate.</b> Each client's lead re-runs its failures, groups them by cause and finds each root cause with evidence.<a class="cite" href="#src-4" aria-label="Source 4">4</a></li>
+        <li><b>Create.</b> Creation agents write new E2E tests from their written steps, and every step must map to an assertion seen passing.<a class="cite" href="#src-3" aria-label="Source 3">3</a></li>
+        <li><b>Review.</b> Review agents check an E2E test against its written steps, a new one or a teammate's, and a second agent challenges every verdict.<a class="cite" href="#src-3" aria-label="Source 3">3</a></li>
+      </ul>
+      <p><b>The Bridge</b> is the one page I watch: what needs a person, what each session is doing, what is waiting and what got done.</p>
+      <p><b>Investigations</b>: hundreds of failures at once, grouped by cause, worked in parallel, each fix proven before it reaches me. A product change or bug question comes to me there, and a bug report takes one key, not 20 to 30 minutes.<a class="cite" href="#src-2" aria-label="Source 2">2</a></p>
+      <div class="see"><a href="/bridge" target="_blank" rel="noopener">Open The Bridge, on invented data</a><a href="/investigations" target="_blank" rel="noopener">Open Investigations, on invented data</a></div>
+    </section>
+
+    <section id="honest">
+      <p class="lab">05 · How it stays honest</p>
+      <h2>Nothing counts until something can check it</h2>
+      <p>Two of the decisions above already keep it honest: proof before "ready", and guardrails in the tool.<a class="cite" href="#src-9" aria-label="Source 9">9</a> Three more things help.</p>
+      <ul class="ticks">
+        <li><b>Every created E2E test proves its steps.</b> Each written step must map to an assertion seen passing, and a second agent challenges every review verdict.<a class="cite" href="#src-3" aria-label="Source 3">3</a></li>
+        <li><b>Everything is on the record.</b> Every request, reply and model call lands in an inbox with a derived status and a per-day cost ledger.<a class="cite" href="#src-5" aria-label="Source 5">5</a></li>
+        <li><b>A new check must fail first.</b> Before a check is trusted, it has to catch a planted mistake.</li>
+      </ul>
+    </section>
+
+    <section id="day">
+      <p class="lab">06 · One day</p>
+      <h2>One day, start to finish</h2>
+      <p class="note" data-invented>An invented day: Client A, B and C, and made-up E2E test ids. The steps are the real ones.</p>
+      <ol class="day" data-invented>
+        <li><span class="when">Morning</span>A suite run leaves failures for three clients. Each client's lead re-runs them first; those that pass unchanged drop out.</li>
+        <li><span class="when">Mid-morning</span>The rest are grouped by cause. One of Client A's groups traces to a renamed checkout field. A worker writes the fix and proves it locally and on the platform, and it reaches The Bridge as ready.</li>
+        <li><span class="when">Late morning</span>Client B's srch-02 fails because search now sorts by date, while its steps expect relevance. Product change or bug is my call, so Investigations asks me.</li>
+        <li><span class="when">Afternoon</span>The bug report for exp-02, an empty export, is drafted from the evidence. A worker creates new E2E tests for Client C, and a review agent challenges each verdict.</li>
+        <li><span class="when">Late afternoon</span>A teammate's E2E test for Client A comes in for review. An agent checks each written step against the code, a second agent challenges the verdict, and the note to my teammate waits for me.</li>
+        <li><span class="when">End of day</span>I apply the proven fixes and run them on the platform myself; my run is the final word. Anything open waits in its record for tomorrow.</li>
+      </ol>
+    </section>
+
+    <section id="person">
+      <p class="lab">07 · What still needs a person</p>
+      <h2>The calls that stay with me</h2>
+      <p>The agents do the reading, the writing and the first review. These stay with me:</p>
+      <ul class="ticks">
+        <li>Applying a change to a customer's E2E tests.</li>
+        <li>Whether a changed behavior is a product change or a bug.</li>
+        <li>Anything that leaves the building, like a bug report or a message to a customer.</li>
+        <li>The note on a teammate's E2E test: I read it and send it.</li>
+        <li>The final run's verdict: a pass is mine to mark.</li>
+        <li>What to work on next.</li>
+      </ul>
+    </section>
+
+    <section id="changed">
+      <p class="lab">08 · What changed</p>
+      <h2>The reading and the writing moved to the agents. The calls stayed with a person.</h2>
+      <dl class="outs">
+        <div><dt>300-500</dt><dd>failing E2E tests cleared a day on one large AI product, in about four hours, while I lead a team<a class="cite" href="#src-7" aria-label="Source 7">7</a></dd></div>
+        <div><dt>50</dt><dd>fully vetted E2E tests in one day, against 10 a week expected<a class="cite" href="#src-3" aria-label="Source 3">3</a></dd></div>
+        <div><dt>1 key</dt><dd>for a bug report, not 20 to 30 minutes<a class="cite" href="#src-2" aria-label="Source 2">2</a></dd></div>
+        <div><dt>17s</dt><dd>to inspect a live page, down from 62s<a class="cite" href="#src-5" aria-label="Source 5">5</a></dd></div>
+      </dl>
+    </section>
+
+    <section id="sources">
+      <p class="lab">Sources</p>
+      <h2>Every figure on this page is on my resume.</h2>
+      <p>Each footnote lands here. Each line names where its figure sits on the resume and opens that line.</p>
+      <ol class="src">
+        <li id="src-1"><span class="n">1</span><span class="f">A personal project, 2026 to present<span class="w">Resume · Projects, Mission Control · its dates</span></span><a class="open" href="/resume/#:~:text=Personal%20project%2C%202026%20to%20Present" target="_blank" rel="noopener">See it on the resume</a></li>
+        <li id="src-2"><span class="n">2</span><span class="f">10x as efficient as by hand, hundreds of failures at once through the platform's CLI and MCP, each fix verified before I apply it, and a bug report in one key, not 20 to 30 minutes<span class="w">Resume · Projects, Mission Control · bullet 1</span></span><a class="open" href="/resume/#:~:text=Built%20an%20AI%20dashboard" target="_blank" rel="noopener">See it on the resume</a></li>
+        <li id="src-3"><span class="n">3</span><span class="f">50 fully vetted E2E tests in one day, against 10 a week expected, with creation and review agents: every written step mapped to an assertion seen passing, and a second agent challenging every review verdict<span class="w">Resume · Projects, Mission Control · bullet 2</span></span><a class="open" href="/resume/#:~:text=Created%2050%20fully%20vetted%20E2E%20tests%20in%20one%20day" target="_blank" rel="noopener">See it on the resume</a></li>
+        <li id="src-4"><span class="n">4</span><span class="f">20 client investigations at once, about 800 failures in all, with a lead session per client, workers and plain-text records<span class="w">Resume · Projects, Mission Control · bullet 3</span></span><a class="open" href="/resume/#:~:text=Ran%2020%20client%20investigations%20at%20once" target="_blank" rel="noopener">See it on the resume</a></li>
+        <li id="src-5"><span class="n">5</span><span class="f">~1k tokens per filtered report, down from 3-8k, live-page inspection from 62s to 17s, and the inbox and cost ledger<span class="w">Resume · Projects, Mission Control · bullet 5</span></span><a class="open" href="/resume/#:~:text=Cut%20context%20cost%20from%203%2D8k%20tokens" target="_blank" rel="noopener">See it on the resume</a></li>
+        <li id="src-6"><span class="n">6</span><span class="f">5,000+ E2E test failures a day, for about 200 customers<span class="w">Resume · Lead Software QA Engineer · bullet 1</span></span><a class="open" href="/resume/#:~:text=investigating%205%2C000%2B%20E2E%20test%20failures%20a%20day" target="_blank" rel="noopener">See it on the resume</a></li>
+        <li id="src-7"><span class="n">7</span><span class="f">300-500 failing E2E tests cleared a day on one large AI product, in about four hours, while leading the team and still investigating hands-on<span class="w">Resume · Lead Software QA Engineer · bullet 2</span></span><a class="open" href="/resume/#:~:text=Cleared%20300%20to%20500%20failing%20E2E%20tests%20a%20day" target="_blank" rel="noopener">See it on the resume</a></li>
+        <li id="src-8"><span class="n">8</span><span class="f">65 E2E tests that check non-deterministic LLM behavior<span class="w">Resume · Software QA Engineer · bullet 2</span></span><a class="open" href="/resume/#:~:text=Made%20AI%20output%20testable" target="_blank" rel="noopener">See it on the resume</a></li>
+        <li id="src-9"><span class="n">9</span><span class="f">No agent certifies its own fix: "ready" needs a clean local run plus a platform run, same code, run id attached, and guardrails refuse destructive platform actions at the tool boundary<span class="w">Resume · Projects, Mission Control · bullet 4</span></span><a class="open" href="/resume/#:~:text=Made%20the%20agents%20safe%20to%20leave%20running" target="_blank" rel="noopener">See it on the resume</a></li>
+      </ol>
+    </section>
+  </article>
+</div>
+</div>
+
+<section class="end"><div class="wrap">
+  <p class="eyebrow">Keep going</p>
+  <h2 class="metal">See the real pages, or read the resume.</h2>
+  <div class="ctas"><a class="btn pri" href="/resume" target="_blank" rel="noopener">View the resume</a><a class="btn ghost" href="/bridge" target="_blank" rel="noopener">Open The Bridge</a><a class="btn ghost" href="/investigations" target="_blank" rel="noopener">Open Investigations</a></div>
+</div></section>
+</main>
+
+<footer><div class="wrap"><a href="/">Home</a><a href="mailto:kevin.rl.bartolome@gmail.com" target="_blank" rel="noopener">Email</a><a href="https://www.linkedin.com/in/kevin-bartolome/" target="_blank" rel="noopener">LinkedIn</a><a href="https://github.com/Kxvin1" target="_blank" rel="noopener">GitHub</a><span class="fine">The linked pages use invented data.</span></div></footer>
+<script>
+(function(){
+  var top=document.querySelector("[data-top]");
+  var links=[].slice.call(document.querySelectorAll(".toc a"));
+  var secs=links.map(function(a){return document.querySelector(a.getAttribute("href"))});
+  function onScroll(){
+    top.classList.toggle("scrolled",scrollY>8);
+    var mark=innerHeight*0.3,cur=-1;
+    secs.forEach(function(s,i){if(s&&s.getBoundingClientRect().top<mark)cur=i});
+    links.forEach(function(a,i){a.classList.toggle("on",i===cur)});
+  }
+  addEventListener("scroll",onScroll,{passive:true});addEventListener("resize",onScroll);onScroll();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="dark">
+<title>Kevin Bartolome</title>
+<meta name="description" content="Kevin Bartolome builds AI agents that investigate, fix, create and review end-to-end (E2E) tests, and keeps a person on every decision that is hard to undo.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="/site.css">
+<script>(function(){var d=document.documentElement;if(matchMedia("(prefers-reduced-motion: reduce)").matches)return;d.classList.add("motion");setTimeout(function(){if(!window.siteReady)d.classList.remove("motion")},2500)})()</script>
+<script src="/landing.js" defer></script>
+</head>
+<body>
+<header class="top" data-top><div class="wrap">
+  <a class="brand" href="#top"><span class="mark">KB</span><span class="nm">Kevin Bartolome</span></a>
+  <nav class="links" aria-label="Demo pages, resume and contact"><a class="demo" href="/bridge" target="_blank" rel="noopener">The Bridge</a><a class="demo" href="/investigations" target="_blank" rel="noopener">Investigations</a><a class="fold" href="/Kevin-Bartolome-Resume.pdf" target="_blank" rel="noopener">PDF</a><a class="fold-sm" href="https://www.linkedin.com/in/kevin-bartolome/" target="_blank" rel="noopener">LinkedIn</a><a class="fold" href="mailto:kevin.rl.bartolome@gmail.com" target="_blank" rel="noopener">Email</a><a class="pill" href="/resume" target="_blank" rel="noopener">Resume</a></nav>
+</div></header>
+
+<main>
+<section class="hero" id="top">
+  <div class="stage-light" aria-hidden="true"></div>
+  <div class="wrap hero-in">
+    <a class="announce" href="#beat-2"><span class="dot"></span>Mission Control<span class="yr"> · Personal project, 2026 to present</span><span class="ar">›</span></a>
+    <p class="eyebrow">AI Engineer · Forward Deployed Engineer · Lead Software QA Engineer · Software Developer</p>
+    <h1 class="metal">Kevin Bartolome</h1>
+    <p class="deck">I build AI agents that investigate, fix, create and review end-to-end (E2E) tests, <span class="lit">and I keep a person on every decision that is hard to undo.</span></p>
+    <p class="meta">US Citizen · Remote or relocation</p>
+    <div class="ctas"><a class="btn pri" href="#story">Read the story in three beats</a><span class="btn ghost runpick" role="group" aria-label="See it running"><a class="rp-lead" href="#running">See it running</a><a class="rp-go" href="/bridge" target="_blank" rel="noopener">The Bridge</a><a class="rp-go" href="/investigations" target="_blank" rel="noopener">Investigations</a></span><a class="btn link" href="/resume" target="_blank" rel="noopener">Resume</a></div>
+    <dl class="specs">
+      <div><dt class="metal">300-500</dt><dd>failing E2E tests cleared a day on one large AI product, in about four hours<a class="cite" href="#src-1" aria-label="Source 1">1</a></dd></div>
+      <div><dt class="metal">10x</dt><dd>as efficient as investigating failures by hand<a class="cite" href="#src-2" aria-label="Source 2">2</a></dd></div>
+      <div><dt class="metal">50</dt><dd>fully vetted E2E tests in one day, against 10 a week expected<a class="cite" href="#src-3" aria-label="Source 3">3</a></dd></div>
+      <div><dt class="metal">20</dt><dd>client investigations at once, about 800 failures in all<a class="cite" href="#src-4" aria-label="Source 4">4</a></dd></div>
+    </dl>
+  </div>
+  <div class="horizon" aria-hidden="true"></div>
+</section>
+
+<section class="story" id="story"><div class="wrap">
+  <header class="sec-head" data-reveal><p class="eyebrow">The story, in three beats</p><h2>Problem, what I built, what changed.</h2></header>
+  <div class="chapters">
+    <nav class="rail" aria-label="The three beats">
+      <div class="rail-line" aria-hidden="true"><span data-rail-fill></span></div>
+      <a class="rail-item on" href="#beat-1" data-go="1"><span class="no">01</span><span class="rt"><span class="st">The problem</span><span class="ss">Failures read and E2E tests written, one at a time</span></span></a>
+      <a class="rail-item" href="#beat-2" data-go="2"><span class="no">02</span><span class="rt"><span class="st">What I built</span><span class="ss">Agents that investigate, create and review; a person on the calls</span></span></a>
+      <a class="rail-item" href="#beat-3" data-go="3"><span class="no">03</span><span class="rt"><span class="st">What changed</span><span class="ss">Faster reading and writing, nothing self-certified</span></span></a>
+    </nav>
+    <div class="beats">
+      <article class="beat" id="beat-1" data-beat="1">
+        <div data-reveal>
+          <p class="lab">Beat 1 · The problem</p>
+          <h3>Thousands of failing E2E tests a day, and new ones written slowly, all by hand.</h3>
+          <p class="body">I lead a team that investigates 5,000+ E2E test failures a day for about 200 customers.<a class="cite" href="#src-5" aria-label="Source 5">5</a> Every failure meant someone reading its logs, its trace and the live page to find the cause, then deciding: is the E2E test wrong, or is the product broken? New E2E tests were slow too: the company expected about 10 a week.<a class="cite" href="#src-3" aria-label="Source 3">3</a> And every E2E test, new or a teammate's, needed a person to check that it does what its steps say.</p>
+        </div>
+        <div class="visual v-problem" data-reveal>
+          <div class="glass bigfig"><span class="n metal">5,000+</span><span class="l">E2E test failures a day, for about 200 customers<a class="cite" href="#src-5" aria-label="Source 5">5</a></span></div>
+          <div class="glass stack" data-invented aria-label="An example queue, with invented E2E test ids">
+            <div class="fail"><span class="x">✗</span><span class="ft">bil-19 · checkout total is empty</span><span class="who">read by hand</span></div>
+            <div class="fail"><span class="x">✗</span><span class="ft">srch-02 · results in the wrong order</span><span class="who">read by hand</span></div>
+            <div class="fail"><span class="x">✗</span><span class="ft">onb-05 · upload never finishes</span><span class="who">read by hand</span></div>
+            <div class="more">… and hundreds more before noon</div>
+          </div>
+        </div>
+      </article>
+      <article class="beat" id="beat-2" data-beat="2">
+        <div data-reveal>
+          <p class="lab">Beat 2 · What I built</p>
+          <h3>Mission Control: agents that investigate, create and review E2E tests, and a person on every call that is hard to undo.</h3>
+          <p class="body">A personal project, 2026 to present.<a class="cite" href="#src-6" aria-label="Source 6">6</a> Three kinds of agent work share one evidence gate and one person on the calls. A lead agent session owns each client, and worker sessions each own one piece of work end to end.<a class="cite" href="#src-4" aria-label="Source 4">4</a></p>
+        </div>
+        <div class="visual" data-reveal>
+          <div class="pipe-wrap"><span class="pulse" aria-hidden="true"></span><ol class="pipe">
+            <li><span class="k">The work</span><span class="v trio"><span><b>Investigate</b> Failures grouped by cause on the Investigations page, each root cause with evidence</span><span><b>Create</b> New E2E tests, every written step mapped to an assertion seen passing</span><span><b>Review</b> Each E2E test checked against its steps; a second agent challenges every verdict</span></span></li>
+            <li><span class="k">Agents</span><span class="v">Each kind of work has its own agents, and every claim carries its evidence</span></li>
+            <li><span class="k">Lead per client</span><span class="v">Workers each own one piece, end to end</span></li>
+            <li class="gate"><span class="k">Evidence gate</span><span class="v">"Ready" needs a clean local run plus a platform run, same code</span></li>
+            <li class="you"><span class="k">A person</span><span class="v">Approves only what is hard to undo</span></li>
+          </ol></div>
+          <p class="loop"><span class="g">↻</span>Every correction I make becomes a written rule, and where it can, a check that fails on a repeat.</p>
+        </div>
+      </article>
+      <article class="beat" id="beat-3" data-beat="3">
+        <div data-reveal>
+          <p class="lab">Beat 3 · What changed</p>
+          <h3>The reading and the writing moved to the agents. The calls stayed with a person.</h3>
+        </div>
+        <dl class="sheet" data-reveal>
+          <div><dt class="metal">1 key</dt><dd>for a bug report, not 20 to 30 minutes<a class="cite" href="#src-2" aria-label="Source 2">2</a></dd></div>
+          <div><dt class="metal">Gated</dt><dd>no agent certifies its own fix: "ready" needs a run id, and guardrails refuse destructive platform actions at the tool boundary<a class="cite" href="#src-7" aria-label="Source 7">7</a></dd></div>
+          <div><dt class="metal">~1k</dt><dd>tokens per filtered report, down from 3-8k per raw page snapshot<a class="cite" href="#src-8" aria-label="Source 8">8</a></dd></div>
+          <div><dt class="metal">Vetted</dt><dd>every written step maps to an assertion seen passing, and a second agent challenges every review verdict<a class="cite" href="#src-3" aria-label="Source 3">3</a></dd></div>
+        </dl>
+      </article>
+    </div>
+  </div>
+</div></section>
+
+<section class="running" id="running"><div class="wrap">
+  <header class="sec-head" data-reveal><p class="eyebrow">See it running</p><h2>The real pages, on invented data.</h2><p class="sub">A preview of each page is below. Open one to click through the real page, drawn by its own code from invented records. Each opens on a normal day; the switch at its top shows a busy one.</p></header>
+  <div class="switch" role="tablist" aria-label="Pick a page">
+    <button type="button" role="tab" class="sw on" aria-selected="true" data-show="bridge">The Bridge</button>
+    <button type="button" role="tab" class="sw" aria-selected="false" data-show="mc">Investigations</button>
+  </div>
+  <div class="screen on" data-screen="bridge">
+    <div class="under"><p class="q">What needs me right now?</p><p class="cap">The one page I watch: what needs a person, what each agent session is doing, and what got done.</p></div>
+    <div class="stage" data-stage><div class="device"><div data-demo="bridge"></div></div><div class="reflect" aria-hidden="true"></div></div>
+    <div class="go"><a class="btn ghost" href="/bridge" target="_blank" rel="noopener">Open The Bridge</a><a class="btn link" href="/bridge/busy/" target="_blank" rel="noopener">See a busy day</a></div>
+  </div>
+  <div class="screen" data-screen="mc">
+    <div class="under"><p class="q">What happened to this morning's failures?</p><p class="cap">Investigations: hundreds of failures at once, grouped by cause, worked in parallel, each fix proven before it reaches me.<a class="cite" href="#src-2" aria-label="Source 2">2</a></p></div>
+    <div class="stage" data-stage><div class="device"><div data-demo="mc"></div></div><div class="reflect" aria-hidden="true"></div></div>
+    <div class="go"><a class="btn ghost" href="/investigations" target="_blank" rel="noopener">Open Investigations</a><a class="btn link" href="/investigations/busy/" target="_blank" rel="noopener">See a busy day</a></div>
+  </div>
+</div></section>
+
+<section class="long"><div class="wrap">
+  <div class="feature" data-reveal>
+    <div class="fx">
+      <p class="eyebrow">The full story · about 5 minutes</p>
+      <h2>How I handed most of the E2E test work to AI agents, and what still needs a person</h2>
+      <p class="body">The constraints, the decisions and what each one cost, how it runs, how it stays honest, and one day start to finish on invented data.</p>
+      <a class="btn pri" href="/mission-control">Read the full story</a>
+    </div>
+    <ul class="covers" aria-label="What it covers"><li>multi-agent orchestration</li><li>evidence gates</li><li>guardrails</li><li>context engineering</li><li>MCP</li><li>Claude Code</li></ul>
+  </div>
+</div></section>
+
+<section class="close" id="about"><div class="wrap" data-reveal>
+  <p class="eyebrow">About me</p>
+  <h2 class="metal">Lead Software QA Engineer now, Software Developer before.</h2>
+  <p class="body">The resume, readable here or as a one-page PDF.</p>
+  <div class="ctas"><a class="btn pri" href="/resume" target="_blank" rel="noopener">View the resume</a><a class="btn ghost" href="/Kevin-Bartolome-Resume.pdf" target="_blank" rel="noopener">Download the PDF</a></div>
+</div></section>
+
+<section class="sources" id="sources"><div class="wrap">
+  <p class="eyebrow">Sources</p>
+  <h2>Every figure on this page is on my resume.</h2>
+  <p class="sub">Each footnote lands here. Each line names where its figure sits on the resume and opens that line.</p>
+  <ol class="src">
+    <li id="src-1"><span class="n">1</span><span class="f">300-500 failing E2E tests cleared a day on one large AI product, in about four hours<span class="w">Resume · Lead Software QA Engineer · bullet 2</span></span><a class="open" href="/resume/#:~:text=Cleared%20300%20to%20500%20failing%20E2E%20tests%20a%20day" target="_blank" rel="noopener">See it on the resume</a></li>
+    <li id="src-2"><span class="n">2</span><span class="f">10x as efficient as by hand, hundreds of failures at once, and a bug report in one key, not 20 to 30 minutes<span class="w">Resume · Projects, Mission Control · bullet 1</span></span><a class="open" href="/resume/#:~:text=Built%20an%20AI%20dashboard" target="_blank" rel="noopener">See it on the resume</a></li>
+    <li id="src-3"><span class="n">3</span><span class="f">50 fully vetted E2E tests in one day, against 10 a week expected, every written step mapped to an assertion seen passing, and a second agent challenging every review verdict<span class="w">Resume · Projects, Mission Control · bullet 2</span></span><a class="open" href="/resume/#:~:text=Created%2050%20fully%20vetted%20E2E%20tests%20in%20one%20day" target="_blank" rel="noopener">See it on the resume</a></li>
+    <li id="src-4"><span class="n">4</span><span class="f">20 client investigations at once, about 800 failures in all<span class="w">Resume · Projects, Mission Control · bullet 3</span></span><a class="open" href="/resume/#:~:text=Ran%2020%20client%20investigations%20at%20once" target="_blank" rel="noopener">See it on the resume</a></li>
+    <li id="src-5"><span class="n">5</span><span class="f">5,000+ E2E test failures a day, for about 200 customers<span class="w">Resume · Lead Software QA Engineer · bullet 1</span></span><a class="open" href="/resume/#:~:text=investigating%205%2C000%2B%20E2E%20test%20failures%20a%20day" target="_blank" rel="noopener">See it on the resume</a></li>
+    <li id="src-6"><span class="n">6</span><span class="f">A personal project, 2026 to present<span class="w">Resume · Projects, Mission Control · its dates</span></span><a class="open" href="/resume/#:~:text=Personal%20project%2C%202026%20to%20Present" target="_blank" rel="noopener">See it on the resume</a></li>
+    <li id="src-7"><span class="n">7</span><span class="f">No agent certifies its own fix, and guardrails refuse destructive platform actions<span class="w">Resume · Projects, Mission Control · bullet 4</span></span><a class="open" href="/resume/#:~:text=Made%20the%20agents%20safe%20to%20leave%20running" target="_blank" rel="noopener">See it on the resume</a></li>
+    <li id="src-8"><span class="n">8</span><span class="f">~1k tokens per filtered report, down from 3-8k<span class="w">Resume · Projects, Mission Control · bullet 5</span></span><a class="open" href="/resume/#:~:text=Cut%20context%20cost%20from%203%2D8k%20tokens" target="_blank" rel="noopener">See it on the resume</a></li>
+  </ol>
+</div></section>
+</main>
+
+<footer><div class="wrap"><a href="mailto:kevin.rl.bartolome@gmail.com" target="_blank" rel="noopener">Email</a><a href="https://www.linkedin.com/in/kevin-bartolome/" target="_blank" rel="noopener">LinkedIn</a><a href="https://github.com/Kxvin1" target="_blank" rel="noopener">GitHub</a><span class="fine">Preview panels use invented data.</span></div></footer>
+</body>
+</html>

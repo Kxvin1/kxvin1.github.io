@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Kevin Bartolome &middot; Resume</title>
+<meta name="description" content="Kevin Bartolome, AI Engineer, Forward Deployed Engineer, Lead Software QA Engineer and Software Developer. Resume.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Condensed:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+:root{
+  --ground:#070b12; --panel:#0d1420; --line:#173247; --line2:#0f2334;
+  --cyan:#39d0ff; --fg:#dceefb; --body:#b9d3e4; --dim:#7fa3b8; --violet:#c9a7ff;
+  --display:"IBM Plex Sans Condensed",system-ui,sans-serif;
+  --sans:"IBM Plex Sans","Segoe UI",system-ui,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+}
+/* the printed page and the PDF: these rules apply in print only; the screen view is site.css and the style after it.
+   :root stays outside: html-to-pdf.mjs and resume-fit.mjs load the print faces only from top-level rules that name them */
+@media print{
+*{box-sizing:border-box}
+body{margin:0; background:var(--ground); color:var(--body); font:400 15.5px/1.6 var(--sans);
+  background-image:radial-gradient(900px 400px at 12% -10%,#102942 0%,rgba(7,11,18,0) 58%);
+  background-repeat:no-repeat; background-attachment:fixed; -webkit-font-smoothing:antialiased}
+.sheet{max-width:860px; margin-inline:auto; padding:34px 24px 70px}
+a{color:var(--cyan)} a:focus-visible{outline:2px solid var(--cyan); outline-offset:3px}
+h1,h2,h3{font-family:var(--display); color:var(--fg); margin:0}
+
+.back{display:inline-block; font:500 11px/1.9 var(--mono); letter-spacing:.15em;
+  text-transform:uppercase; color:var(--dim); text-decoration:none; margin-bottom:26px}
+.back:hover{color:var(--cyan)}
+.top{display:flex; flex-wrap:wrap; gap:18px 30px; align-items:flex-end;
+  border-bottom:1px solid var(--line); padding-bottom:18px}
+h1{font-weight:700; font-size:clamp(30px,5vw,40px); line-height:1.03; letter-spacing:-.015em}
+h1 span{display:block; font:500 13px/1.6 var(--mono); letter-spacing:.16em; text-transform:uppercase;
+  color:var(--cyan); margin-top:9px}
+.contact{margin-left:auto; text-align:right; font-size:14px; line-height:1.75; color:var(--dim)}
+.contact a{text-decoration:none} .contact a:hover{text-decoration:underline}
+.dl{display:inline-flex; align-items:center; gap:8px; margin-top:12px; text-decoration:none;
+  font:500 11.5px/1 var(--mono); letter-spacing:.13em; text-transform:uppercase;
+  border:1px solid var(--cyan); color:var(--cyan); border-radius:2px; padding:9px 14px}
+.dl:hover{background:#12384d}
+
+h2{font-weight:600; font-size:12px; letter-spacing:.2em; text-transform:uppercase; color:var(--dim);
+  margin:36px 0 4px; padding-bottom:8px; border-bottom:1px solid var(--line2)}
+.job{padding:16px 0 4px; border-bottom:1px solid var(--line2)}
+.job:last-child{border-bottom:0}
+.jhead{display:flex; flex-wrap:wrap; gap:4px 14px; align-items:baseline; margin-bottom:9px}
+.jhead h3{font-size:20px; font-weight:700}
+.jhead .co{font-size:16px; font-family:var(--display); font-weight:600; color:var(--cyan)}
+.jhead .when{margin-left:auto; font:500 12.5px/1.6 var(--mono); color:var(--dim); white-space:nowrap}
+.jhead .sep{color:var(--dim); font-size:16px}
+/* company gets a fixed column so every job TITLE starts on the same vertical axis:
+   without it the title's x floats with the company name's length (2026-09-04) */
+.jhead > .co:first-child{display:inline-block; min-width:88px}
+ul.b{list-style:none; margin:0; padding:0}
+ul.b li{padding:0 0 9px 14px; text-indent:-14px; font-size:15px; line-height:1.55}
+ul.b li::before{content:"\25AA"; display:inline-block; width:14px; text-indent:0; color:var(--cyan); font-size:11px}
+ul.b b{color:var(--fg); font-weight:600}
+
+.proj{border:1px solid var(--line); border-left:2px solid var(--violet); border-radius:3px;
+  background:var(--panel); padding:18px 20px 12px; margin-top:16px}
+.proj .jhead h3{color:var(--fg)}
+/* project DESCRIPTOR, not a name: dim and smaller so the reader never has to guess which
+   half is the project title (2026-09-04) */
+.jhead .tag{font-size:14px; font-family:var(--sans); color:var(--dim)}
+.proj .link{font:500 12px/1.6 var(--mono); color:var(--cyan); margin:0 0 12px; display:block; text-decoration:none}
+.proj .link:hover{text-decoration:underline}
+.stack{margin:6px 0 0; font:500 12.5px/1.6 var(--mono); color:var(--dim)}
+
+.skl{display:grid; grid-template-columns:max-content 1fr; gap:5px 16px; margin:14px 0 0}
+.skl dt{font:500 11.5px/1.7 var(--mono); letter-spacing:.1em; text-transform:uppercase; color:var(--cyan)}
+.skl dd{margin:0; font-size:14.5px; line-height:1.7; color:var(--body)}
+.fill{background:#5a2a00; color:#ffcc66; border:1px dashed #ffcc66; border-radius:2px;
+  padding:0 5px; font:500 12.5px var(--mono); white-space:nowrap}
+.edu{display:flex; flex-wrap:wrap; gap:4px 12px; align-items:baseline; padding:10px 0;
+  border-bottom:1px solid var(--line2); font-size:15px}
+.edu:last-child{border-bottom:0}
+.edu b{color:var(--fg); font-family:var(--display); font-size:17px; font-weight:600}
+.edu .sep2{color:var(--dim); padding:0 4px}
+.edu .when{margin-left:auto; font:500 12.5px var(--mono); color:var(--dim)}
+@media (max-width:660px){
+  .contact{margin-left:0; text-align:left} .jhead .when{margin-left:0; width:100%}
+  .edu .when{margin-left:0; width:100%}
+}
+}
+
+/* ---- print / PDF: a resume gets printed and read on paper, so the PDF is black on white ---- */
+@media print{
+  @page{margin:8.5mm 11mm}
+  :root{--fg:#000; --body:#1a1a1a; --dim:#555; --cyan:#0b5f80; --violet:#4a3a6b; --line:#bbb; --line2:#ddd}
+  /* PDF body face is Condensed, not IBM Plex Sans: css2 serves Plex Sans as a VARIABLE font and
+     Chromium's print-to-PDF cannot embed variable faces, so it silently substituted DejaVu.
+     Condensed is static, embeds cleanly, is the same family, and fits more per line on paper. */
+  body{background:#fff!important; background-image:none!important; color:#1a1a1a;
+    font-family:"IBM Plex Sans Condensed","Segoe UI",Arial,sans-serif;
+    font-size:9.15pt; line-height:1.27}
+  .sheet{max-width:none; padding:0; margin:0}
+  .back,.dl{display:none!important}
+  h1{font-size:16.5pt} h1 span{font-size:7pt; letter-spacing:.03em; color:#0b5f80; margin-top:2pt; white-space:nowrap}
+  .contact{font-size:8.5pt; line-height:1.42} .contact a{color:#1a1a1a; text-decoration:none}
+  h2{font-size:8.2pt; margin:5.5pt 0 1pt; padding-bottom:1.5pt; color:#555; border-bottom:.5pt solid #999}
+  .top{padding-bottom:4.5pt; border-bottom:.75pt solid #999; column-gap:20px}
+  .job{padding:3.4pt 0 0.5pt; border-bottom:.5pt solid #ddd; break-inside:avoid}
+  .jhead{margin-bottom:2.4pt} .jhead .when{font-size:8.6pt}
+  .jhead h3{font-size:11.8pt} .jhead .co{font-size:9.8pt}
+  ul.b li{padding:0 0 1.7pt 10pt; text-indent:-10pt; font-size:9.15pt; line-height:1.27}
+  ul.b li::before{width:10pt}
+  .jhead > .co:first-child{min-width:52pt}
+  ul.b li::before{color:#333}
+  .proj{background:#fff; border:0; border-radius:0; padding:0; margin-top:3pt; break-inside:avoid}
+  .proj .link{color:#0b5f80; font-size:8.5pt; margin-bottom:3pt}
+  .jhead .tag{font-size:9pt; color:#555}
+  .stack{font-size:8.8pt}
+  .skl{gap:1pt 7pt; margin-top:1.5pt}
+  .skl dt{font-size:8pt; line-height:1.27}
+  .skl dd{font-size:9.15pt; line-height:1.27}
+  .fill{background:#fff; color:#000; border:.5pt solid #000; padding:0 2pt; font-size:8.6pt}
+  .edu{padding:1pt 0; font-size:9.4pt; border-bottom:0} .edu b{font-size:10.5pt} .edu .when{font-size:9pt}
+}
+
+@media print{
+.sum{margin:14px 0 0; font-size:15px; line-height:1.6; color:var(--body)}
+}
+@media print{.sum{font-size:9.15pt; line-height:1.27; margin:3pt 0 0; color:#222}}
+/* the site's top bar and the stage light are screen only */
+@media print{[data-top],.stage-light{display:none!important}}
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" media="screen">
+<link rel="stylesheet" href="/site.css" media="screen">
+<style media="screen">
+/* The screen view, in the site's premium dark style (site.css): its top bar, the resume's header as a dark opening and the body
+   on the light reading sheet (.paper), as /mission-control's long text is. The rules above draw the printed page and the PDF only. */
+/* site.css's .sheet (the landing's figure grid) and .top (its top bar) share their names with this page's print classes */
+.sheet{position:relative;display:block;max-width:none;margin:0;padding:0 0 112px;border-top:0}
+.sheet>.stage-light{bottom:auto;height:640px;padding:0;border:0}
+.sheet>.top{position:relative;z-index:1;max-width:1000px;margin:0 auto;padding:76px 32px 68px;text-align:center;
+  background:none;-webkit-backdrop-filter:none;backdrop-filter:none;border-bottom:0;transition:none}
+.sheet>.top h1{font:700 clamp(44px,7vw,96px)/1.02 var(--display);letter-spacing:-.045em;margin:0;padding-bottom:.06em;
+  background-size:100% 1.02em;background-repeat:repeat-y}
+.sheet>.top h1 span{display:block;max-width:860px;margin:22px auto 0;font:500 12px/1.9 var(--mono);letter-spacing:.14em;
+  text-transform:uppercase;color:var(--dim);text-wrap:balance}
+.sheet>.top .contact{margin-top:26px;font-size:15px;line-height:1.8;color:var(--body)}
+.sheet>.top .contact a:hover{text-decoration:underline;text-underline-offset:4px}
+/* the Download PDF link drawn as the site's primary pill (.btn.pri); it keeps its one class, which the resume checks skip */
+.sheet>.top .contact .dl{display:flex;align-items:center;gap:8px;width:max-content;height:46px;margin:30px auto 0;padding:0 22px;
+  border-radius:999px;background:var(--fg);color:#050506;font:600 15px var(--sans);letter-spacing:-.005em;text-decoration:none;
+  box-shadow:0 0 0 1px rgba(255,255,255,.08),0 10px 36px -10px rgba(var(--accent-rgb),.65);transition:background .2s,box-shadow .2s}
+.sheet>.top .contact .dl:hover{background:#fff;box-shadow:0 0 0 1px rgba(255,255,255,.12),0 14px 44px -10px rgba(var(--accent-rgb),.85)}
+
+/* the reading sheet: each section's label in a left column beside its content, one column below 960px */
+.sheet>div.paper{display:grid;grid-template-columns:168px minmax(0,1fr);column-gap:56px;align-items:baseline;margin:0 auto;padding:80px 96px 96px;border:0}
+.paper>*{grid-column:2;min-width:0}
+.paper>.sum{grid-column:1/-1;max-width:900px;margin:0;font:500 20px/1.6 var(--sans);letter-spacing:-.012em;color:var(--ink)}
+.paper>h2{grid-column:1;margin:64px 0 0;font:500 12px/28px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--blue)}
+.paper>h2+*{margin-top:64px}
+.paper .job{padding:0;border:0}
+.paper .job+.job{margin-top:30px;padding-top:30px;border-top:1px solid var(--rule)}
+.paper .jhead{display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 16px;margin-bottom:12px}
+.paper .jhead .co{min-width:92px;font:500 15px/28px var(--sans);color:var(--ink3)}
+.paper .jhead h3{margin:0;font:600 21px/28px var(--display);letter-spacing:-.02em;color:var(--ink)}
+.paper .jhead .tag{font-size:15px;color:var(--ink3)}
+.paper .jhead .when{margin-left:auto;font:500 12.5px/28px var(--mono);color:var(--ink3);white-space:nowrap}
+.paper ul.b{list-style:none;margin:0;padding:0}
+.paper ul.b li{position:relative;padding:0 0 12px 22px;font-size:16px;line-height:1.65;color:var(--ink2)}
+.paper ul.b li:last-child{padding-bottom:0}
+.paper ul.b li::before{content:"";position:absolute;left:2px;top:10px;width:6px;height:6px;border-radius:50%;background:var(--blue)}
+.paper ul.b b{color:var(--ink);font-weight:600}
+.paper .proj{padding:26px 30px 24px;border:1px solid var(--rule);border-radius:20px;background:#fff}
+.paper .proj .link{display:block;width:max-content;max-width:100%;margin:0 0 16px;font:500 12.5px/1.6 var(--mono);color:var(--blue)}
+.paper .proj .link:hover{text-decoration:underline;text-underline-offset:3px}
+.paper .skl{display:grid;grid-template-columns:max-content minmax(0,1fr);align-items:baseline;gap:12px 28px;margin:0}
+.paper .skl dt{width:auto;padding:0;font:500 11.5px/26px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ink3)}
+.paper .skl dd{max-width:none;margin:0;font-size:16px;line-height:26px;color:var(--ink2)}
+/* one school per line, its degree beside it, so the separator between the two is not drawn */
+.paper .edu{display:grid;grid-template-columns:max-content minmax(0,1fr);align-items:baseline;gap:8px 24px;font-size:16px;line-height:1.6;color:var(--ink2)}
+.paper .edu b{font:600 18px var(--display);letter-spacing:-.015em;color:var(--ink)}
+.paper .edu .sep2{display:none}
+@media (max-width:960px){.sheet>div.paper{display:block;padding:56px 40px 72px}.paper>h2{margin:52px 0 16px}.paper>h2+*{margin-top:0}}
+@media (max-width:600px){.sheet{padding-bottom:72px}.sheet>.top{padding:52px 16px 48px}.sheet>.top h1 span{font-size:11px;letter-spacing:.1em}.sheet>div.paper{padding:40px 20px 56px}
+  .paper>.sum{font-size:18px}.paper .jhead .co{min-width:0}.paper .jhead .when{margin-left:0;width:100%}.paper .proj{padding:22px 18px 20px}
+  .paper .skl{grid-template-columns:minmax(0,1fr);gap:0}.paper .skl dd+dt{margin-top:12px}
+  .paper .edu{grid-template-columns:minmax(0,1fr);gap:0}.paper .edu .sep2+b{margin-top:12px}}
+</style>
+</head>
+<body>
+<header class="top" data-top><div class="wrap">
+  <a class="brand" href="/"><span class="mark">KB</span><span class="nm">Kevin Bartolome</span></a>
+  <nav class="links" aria-label="Demo pages, resume and contact"><a class="demo" href="/bridge" target="_blank" rel="noopener">The Bridge</a><a class="demo" href="/investigations" target="_blank" rel="noopener">Investigations</a><a class="fold" href="/Kevin-Bartolome-Resume.pdf" target="_blank" rel="noopener">PDF</a><a class="fold-sm" href="https://www.linkedin.com/in/kevin-bartolome/" target="_blank" rel="noopener">LinkedIn</a><a class="fold" href="mailto:kevin.rl.bartolome@gmail.com" target="_blank" rel="noopener">Email</a><a class="pill" href="/resume" aria-current="page">Resume</a></nav>
+</div></header>
+
+<main>
+<div class="sheet">
+<div class="stage-light" aria-hidden="true"></div>
+
+<header class="top">
+  <h1 class="metal">Kevin Bartolome<span>AI Engineer &nbsp;&middot;&nbsp; Forward Deployed Engineer &nbsp;&middot;&nbsp; Lead Software QA Engineer &nbsp;&middot;&nbsp; Software Developer</span></h1>
+  <div class="contact">
+    US Citizen &nbsp;&middot;&nbsp; Remote or relocation<br>
+    <a href="mailto:kevin.rl.bartolome@gmail.com">kevin.rl.bartolome@gmail.com</a><br>
+    <a href="https://www.linkedin.com/in/kevin-bartolome/">LinkedIn</a> &nbsp;&middot;&nbsp;
+    <a href="https://kxvin1.github.io/">kxvin1.github.io</a>
+    <a class="dl" href="/Kevin-Bartolome-Resume.pdf" download>&darr; Download PDF</a>
+  </div>
+</header>
+
+<div class="paper">
+<p class="sum">Engineer who builds AI agents that investigate and fix failing end-to-end (E2E) tests for customers of QA Wolf, an AI testing platform, and leads its largest team, 13 engineers covering about 200 customers, while still investigating hands-on. Former QA lead for Harvey, a $15.5B AI legal platform.</p>
+
+<h2>Work Experience</h2>
+
+<div class="job">
+  <div class="jhead"><span class="co">QA Wolf</span><h3>Lead Software QA Engineer</h3>
+    <span class="when">10/2025 to Present</span></div>
+  <ul class="b">
+    <li><b>Lead the company's largest team, its only full-time investigation team</b>: 13 hand-picked top performers
+    (large teams were 6 or 7) investigating 5,000+ E2E test failures a day, and growing, for about 200 customers, including
+    DoorDash, Harvey, Figma, Grafana, Metronome and Braintrust</li>
+    <li><b>Cleared 300 to 500 failing E2E tests a day on Harvey, in about four hours, with AI agents I built</b>: they
+    read logs, traces and live DOM to a root cause with evidence, which lets me lead this team and still investigate
+    hands-on all day</li>
+    <li><b>Cut SLA breaches about 40% and company-wide investigation time about 28%</b> with a fixed daily on-call routine for customer messages and written SLA rules applied the same way for every customer, giving the company's own customer teams back roughly 300
+    to 375 hours a week</li>
+    <li><b>Built the new team's processes from scratch at a fast-moving startup</b>: had it running in under a working day, set its standards and how it uses the company's AI, and trained every engineer on it, raising the share of E2E test suites that AI closes on its own from about a third to about half</li>
+    <li><b>Led QA for Harvey, a $15.5B AI legal platform</b>, before this team: owned E2E test strategy for its Playwright and TypeScript suite of 1,600+ E2E tests and a strong relationship with its engineers and CSMs, the record that got me picked to lead this
+    team</li>
+  </ul>
+</div>
+
+<div class="job">
+  <div class="jhead"><span class="co">QA Wolf</span><h3>Software QA Engineer</h3>
+    <span class="when">07/2025 to 10/2025</span></div>
+  <ul class="b">
+    <li><b>Promoted to Lead Software QA Engineer within three months of hire</b></li>
+    <li><b>Made AI output testable</b>: 65 E2E tests that check non-deterministic LLM behavior (agentic document
+    workflows, streaming completions, citation integrity) even though answers change every run</li>
+    <li><b>Extended E2E coverage past the browser</b> to Microsoft Word (web and PC), iOS/Appium, email, Twilio SMS/MFA
+    and Google OAuth via a stealth browser, reaching flows browser-only E2E tests miss</li>
+  </ul>
+</div>
+
+<div class="job">
+  <div class="jhead"><span class="co">Zeta Global</span><h3>Software Developer</h3>
+    <span class="when">02/2023 to 07/2025</span></div>
+  <ul class="b">
+    <li><b>Retired a standing manual reporting job</b> with internal React/Next.js dashboards on real-time PostgreSQL
+    filtering, adopted across teams as their working view into the data</li>
+    <li><b>Replaced manual data gathering with one validated pipeline</b>: a Python collection service over REST APIs and
+    SQL that improved the accuracy of the data teams reported on, tested and deployed through GitHub Actions and Docker</li>
+  </ul>
+</div>
+
+<h2>Projects</h2>
+
+<div class="job proj">
+  <div class="jhead"><h3>Mission Control</h3>
+    <span class="tag">Human-in-the-Loop AI Automation</span>
+    <span class="when">Personal project, 2026 to Present</span></div>
+  <a class="link" href="https://kxvin1.github.io/mission-control">kxvin1.github.io/mission-control</a>
+  <ul class="b">
+    <li><b>Built an AI dashboard that investigates hundreds of failures at once, 10x as
+    efficiently as by hand</b>: agents group the failures, work the groups in parallel via QA Wolf's CLI and MCP,
+    and verify each fix before I apply it; a bug report is one keystroke, not 20-30 minutes</li>
+    <li><b>Created 50 fully vetted E2E tests in one day, against a company-wide expectation of 10 a week</b>, with
+    creation and review agents I built: every written step must map to an assertion seen passing, and a second agent
+    challenges every review verdict</li>
+    <li><b>Ran 20 client investigations at once, about 800 failures in all, with scale built in</b>: a lead agent
+    session per client, worker sessions that each own a piece of work end to end, and all state in plain-text records,
+    so no work is lost when a session ends</li>
+    <li><b>Made the agents safe to leave running on investigation and creation</b>: evidence gates stop them from self-certifying ("ready" needs a clean
+    local run plus a run on QA Wolf's infrastructure, same code, run id attached), and guardrails refuse destructive
+    platform actions at the tool boundary</li>
+    <li><b>Cut context cost from 3-8k tokens per raw page snapshot to ~1k per filtered report</b>, and live-DOM inspection from 62s to 17s, with
+    every request, reply and model call in an inbox with a derived status and a per-day cost ledger</li>
+  </ul>
+</div>
+
+<h2>Skills</h2>
+<dl class="skl">
+  <dt>AI &amp; Agents</dt><dd>Multi-agent orchestration, LLM evals, MCP, tool calling, guardrails, human-in-the-loop,
+    context engineering, prompt engineering, AI observability, structured output, Claude&nbsp;Code</dd>
+  <dt>Languages</dt><dd>TypeScript, Python, JavaScript, SQL, Bash</dd>
+  <dt>Testing</dt><dd>Playwright, Page Object Model, Appium, E2E test automation and strategy, root-cause analysis, failure triage</dd>
+  <dt>Web &amp; Backend</dt><dd>React, Next.js, Node.js, REST APIs, PostgreSQL</dd>
+  <dt>Infrastructure</dt><dd>Docker, GitHub Actions, CI/CD</dd>
+</dl>
+
+<h2>Education</h2>
+<div class="edu"><b>App Academy</b><span>1,000-hour full stack web development, 07/2022</span>
+  <span class="sep2">&middot;</span><b>CSU Northridge</b><span>Bachelor of Science in Psychology, 12/2019</span></div>
+
+</div>
+</div>
+</main>
+<script>
+(function(){
+  var top=document.querySelector("[data-top]");
+  function onScroll(){top.classList.toggle("scrolled",scrollY>8)}
+  addEventListener("scroll",onScroll,{passive:true});onScroll();
+})();
+</script>
+</body>
+</html>
